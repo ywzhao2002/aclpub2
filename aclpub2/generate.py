@@ -300,6 +300,8 @@ def generate_watermarked_pdfs(papers_with_pages, conference, root: Path):
     watermarked_pdfs.mkdir(exist_ok=True)
     with multiprocessing.Pool(processes=multiprocessing.cpu_count()) as pool:
         for paper in papers_with_pages:
+            print("All paper ids: ", paper['id'])
+        for paper in papers_with_pages:
             pool.apply_async(
                 create_watermarked_pdf,
                 args=(paper, conference, root),

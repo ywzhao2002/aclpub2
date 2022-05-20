@@ -386,7 +386,6 @@ In addition, it is also responsible for configuring some convenience functions t
 Describes the conference program.
 This file is organized in blocks, each with a title, start, and end time, followed by a list of papers IDs.
 Instead of defining presentations, sessions may define subsessions, which have the same structure as the top-level session.
-
 ```yaml
 - title: Title of the conference session, e.g. Opening Remarks
   start_time: Start time of the session as an ISO datestring.
@@ -413,3 +412,43 @@ Instead of defining presentations, sessions may define subsessions, which have t
       start_time: Optional start time of the paper slot as an ISO datestring.
       end_time: Optional start time of the paper slot as an ISO datestring.
 ```
+
+#### Initial Setup:
+```
+## For reference only:
+
+#1. Create and enter the virtual environment (with conda):
+conda create -n aclpub2 python=3.7
+
+#2. Install following packages:
+pip install openreview-py
+python -m pip install -r requirements.txt
+
+#3. Download TeXLive 2022 from the url https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
+# Don't use Homebrew to get the package if you are CentOS Linux or Rocky Linux user.
+# We then unzip the file and use the following command to install the package:
+sudo perl install-tl -gui text
+
+#4. Install pax-tds and PDFbox.
+# I provided a pax-tds folder in the current directory.
+# You can check the README file in ./pax-tds/doc/latex/pax
+# or directly use the pdfannotextractor.pl file in pax-tds/scripts/pax to install PDFbox:
+perl ./pax-tds/scripts/pax/pdfannotextractor.pl  --install
+```
+
+#### Initial Attempt for the Proceedings and the Handbook:
+```
+# For the proceedings:
+./bin/generate examples/sigdial --proceedings --overwrite --outdir output/proceedings
+
+# For the handbook:
+# I use the examples/handbook folder here because only this folder contains
+# the necessary *.yml files like workers.yml for creating the handbook.
+./bin/generate examples/handbook --proceedings --overwrite --outdir output/handbook
+```
+#### Potential bugs and fixes:
+1. If you find your program often gets stucked while compiling the papers, click the **return button** to move on.
+For more info about this issue, check the function _error_hanlder_ in generate.py.
+
+#### Output:
+I have uploaded the folder **output**, please let me know if we have different outputs.
